@@ -9,4 +9,5 @@
     <string name="invalid_username">Pas un email valid</string>
     <string name="invalid_password">Plus de 5 caractéres sont requis pour le mot de passe</string>
     <string name="login_failed">"Echec dans la connexion"</string>
+    <string name="title_activity_shop_list">ShopList</string>
 </resources>
