@@ -20,26 +20,44 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivImage"
-        android:layout_width="match_parent"
-        android:layout_height="236dp"
+        android:layout_width="184dp"
+        android:layout_height="174dp"
         android:layout_marginTop="10dp"
         android:src="@drawable/carrefour" />
-
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_toRightOf="@id/ivImage">
     <TextView
         android:id="@+id/tvDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:padding="5dp"
-        android:text="TextView"
-        android:textSize="18sp" />
+        android:text="Carefour City"
+        android:textSize="18sp"
+        style="@style/TextAppearance.MaterialComponents.Headline1"
+        />
+    <TextView
+        android:id="@+id/StoreAdressTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:padding="5dp"
+        android:text="1 rue de l'android 37000 Tours Valey"
+        android:textSize="18sp"
+        android:layout_below="@id/tvDescription"
+        />
+
+</RelativeLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_product_list_res"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/ivImage"
         android:background="@color/colorPrimary"
-        android:scrollbars="vertical"
-        android:layout_below="@id/ivImage"/>
+        android:scrollbars="vertical" />
 
 </RelativeLayout>

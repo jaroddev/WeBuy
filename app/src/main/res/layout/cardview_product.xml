@@ -14,6 +14,7 @@
         card_view:cardElevation="3dp"
         android:layout_margin="4dp"
         card_view:cardUseCompatPadding="true"
+        card_view:cardCornerRadius="10dp"
         >
 
         <RelativeLayout
@@ -23,9 +24,13 @@
             <ImageView
                 android:id="@+id/productImageIV"
                 android:layout_width="139dp"
-
                 android:layout_height="140dp"
                 android:src="@drawable/carrefour" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:orientation="vertical"
+                android:layout_toRightOf="@id/productImageIV">
 
             <TextView
                 android:id="@+id/productTitleTV"
@@ -34,7 +39,39 @@
                 android:gravity="center"
                 android:text="TextView"
                 android:textSize="18sp"
-                android:textStyle="italic|bold" />
+                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/productPublisherTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="publishedBy JohnDoe"
+                    android:textSize="18sp"
+                    android:textStyle="italic|bold" />
+                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:id="@+id/productPriceTV"
+                        android:layout_width="133dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="TextView"
+                        android:textSize="18sp"
+                        android:textStyle="italic|bold" />
+                <TextView
+                    android:id="@+id/productDiscountPriceTV"
+                    android:layout_width="133dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textSize="18sp"
+                    android:textStyle="italic|bold" />
+                </LinearLayout>
+            </LinearLayout>
 
         </RelativeLayout>
 
