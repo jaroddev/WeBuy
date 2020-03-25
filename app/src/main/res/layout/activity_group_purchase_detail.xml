@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".GroupPurchaseDetailActivity">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -79,22 +78,36 @@
         android:paddingRight="16dp"
         android:paddingBottom="16dp">
 
-        <TextView
-            android:id="@+id/productCost"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/price_discount"
-            android:text="%1$s €"
-            android:textColor="@color/colorAccent"
-            android:textSize="25dp" />
+            android:gravity="center"
+            android:paddingHorizontal="16px"
+            android:paddingVertical="16px">
 
-        <TextView
-            android:id="@+id/discountCost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="%1$s €"
-            android:textColor="@color/colorBlueLight"
-            android:textSize="35dp" />
+            <TextView
+                android:id="@+id/productCost"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:background="@drawable/price_discount"
+                android:text="%1$s €"
+                android:textColor="@color/colorAccent"
+                android:textSize="25dp" />
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="48dp"
+                android:background="@drawable/discount_arrow" />
+
+            <TextView
+                android:id="@+id/discountCost"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:text="%1$s €"
+                android:textColor="@color/colorBlueLight"
+                android:textSize="35dp" />
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/minQuantity"
@@ -118,10 +131,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
-        android:text="Membres inscrits"
-        android:textSize="16dp" />
+        android:text="Liste des membres inscrits"
+        android:textSize="18dp"
+        android:textStyle="bold" />
 
     <ListView
         android:id="@+id/membersList"
