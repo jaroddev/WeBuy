@@ -28,44 +28,52 @@
             android:orientation="vertical"
             android:paddingLeft="16dp">
 
-            <TextView
-                android:id="@+id/productName"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Nom produit"
-                android:textSize="18sp"
-                android:textStyle="italic|bold" />
+                android:orientation="vertical"
+                android:paddingLeft="16dp">
 
-            <TextView
-                android:id="@+id/groupLeader"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/productName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nom produit"
+                    android:textSize="18sp"
+                    android:textStyle="italic|bold">
+                    text haha</TextView>
+
+                <TextView
+                    android:id="@+id/groupLeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lancé par : %1$s" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Lancé par : %1$s" />
+                android:orientation="horizontal"
+                android:paddingLeft="16dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/participants_48" />
+
+                <TextView
+                    android:id="@+id/test2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="%1$s/%2$s"
+                    android:textSize="32dp"
+                    android:textStyle="italic|bold" />
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="2dp"
-            android:layout_height="2dp"
-            android:orientation="vertical"
-            android:paddingLeft="16dp">
-
-            <TextView
-                android:id="@+id/test"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nom produit"
-                android:textSize="18sp"
-                android:textStyle="italic|bold" />
-
-            <TextView
-                android:id="@+id/test2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nom produit"
-                android:textSize="18sp"
-                android:textStyle="italic|bold" />
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -92,7 +100,7 @@
                 android:background="@drawable/price_discount"
                 android:text="%1$s €"
                 android:textColor="@color/colorAccent"
-                android:textSize="25dp" />
+                android:textSize="30sp" />
 
             <ImageView
                 android:layout_width="70dp"
@@ -108,24 +116,35 @@
                 android:textSize="35dp" />
         </LinearLayout>
 
-
-        <TextView
-            android:id="@+id/minQuantity"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Quantité min. : %1$s" />
+            android:gravity="center"
+            android:paddingHorizontal="16px"
+            android:paddingVertical="16px">
 
-        <TextView
-            android:id="@+id/quantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Quantité à acheter : %1$s" />
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/cart"
+                />
 
-        <TextView
-            android:id="@+id/remainingQuantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Quantité restante : %1$s" />
+            <TextView
+                android:id="@+id/quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:text="%1$s/%2$s" />
+
+            <TextView
+                android:id="@+id/minQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quantité minimum : %1$s" />
+
+        </LinearLayout>
+
+
     </LinearLayout>
 
     <TextView
@@ -143,4 +162,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical" />
+
 </LinearLayout>
