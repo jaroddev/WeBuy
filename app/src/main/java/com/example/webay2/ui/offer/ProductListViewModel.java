@@ -1,18 +1,18 @@
-package com.example.webay2.ui.store_promotion;
+package com.example.webay2.ui.offer;
 
 import androidx.lifecycle.ViewModel;
 
-import com.example.webay2.StoreData;
+import com.example.webay2.entities.Shop;
 
 public class ProductListViewModel extends ViewModel {
     // TODO: Implement the ViewModel
-    StoreData magasinData;
-    public ProductListViewModel(StoreData magasinData)
+    Shop magasinData;
+    public ProductListViewModel(Shop magasinData)
     {
         this.magasinData = magasinData;
     }
 
-    public StoreData getMagasinData() {
+    public Shop getMagasinData() {
         return magasinData;
     }
 }

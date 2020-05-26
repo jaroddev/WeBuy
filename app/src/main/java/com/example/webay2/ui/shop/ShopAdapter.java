@@ -1,4 +1,4 @@
-package com.example.webay2.ui.store_list;
+package com.example.webay2.ui.shop;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,20 +13,21 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.webay2.R;
-import com.example.webay2.StoreData;
-import com.example.webay2.ui.store_promotion.ProductListFragment;
+import com.example.webay2.entities.Shop;
+import com.example.webay2.ui.offer.ProductListFragment;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class StoreListAdapter extends RecyclerView.Adapter <StoreListViewHolder>
+public class ShopAdapter extends RecyclerView.Adapter <ShopViewHolder>
 {
     private Context context;
-    private List<StoreData> storeDataList;
+    private List<Shop> shopList;
     Fragment prevFragment;
 
-    public StoreListAdapter(Context context, List<StoreData> storeDataList, Fragment homeFragment) {
+    public ShopAdapter(Context context, List<Shop> shopList, Fragment homeFragment) {
         this.context = context;
-        this.storeDataList = storeDataList;
+        this.shopList = shopList;
         this.prevFragment = homeFragment;
 
 
@@ -34,15 +35,16 @@ public class StoreListAdapter extends RecyclerView.Adapter <StoreListViewHolder>
 
     @NonNull
     @Override
-    public StoreListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ShopViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_store, parent, false);
-        return new StoreListViewHolder(view);
+        return new ShopViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final StoreListViewHolder holder, final int position) {
-        holder.getImage().setImageResource(storeDataList.get(position).getImage());
-        holder.getTitle().setText(storeDataList.get(position).getName());
+    public void onBindViewHolder(@NonNull final ShopViewHolder holder, final int position) {
+        //holder.getImage().setImageResource(storeDataList.get(position).getImage());
+        Picasso.get().load(shopList.get(position).getShopGroup().getLogo().getUrlImage()).into(holder.getImage());
+        holder.getTitle().setText(shopList.get(position).getShopGroup().getName());
 
 
 
@@ -55,7 +57,7 @@ public class StoreListAdapter extends RecyclerView.Adapter <StoreListViewHolder>
                 ProductListFragment magasinFragment = new ProductListFragment();
 
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("magasin", storeDataList.get(position));
+                bundle.putSerializable("magasin", shopList.get(position));
                 //bundle.putSerializable("inflater", (Serializable) LayoutInflater.from(context));
                 magasinFragment.setArguments(bundle);
                 ((FragmentActivity)context).getSupportFragmentManager().beginTransaction()
@@ -83,6 +85,6 @@ public class StoreListAdapter extends RecyclerView.Adapter <StoreListViewHolder>
 
     @Override
     public int getItemCount() {
-        return storeDataList.size();
+        return shopList.size();
     }
 }

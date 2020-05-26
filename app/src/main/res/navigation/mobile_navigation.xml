@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.webay2.ui.store_list.StoreListFragment"
+        android:name="com.example.webay2.ui.shop.ShopFragment"
         android:label="@string/menu_stores"
         tools:layout="@layout/fragment_store_list" />
 
@@ -42,7 +42,7 @@
         tools:layout="@layout/fragment_send" />
     <fragment
         android:id="@+id/nav_stores"
-        android:name="com.example.webay2.ui.store_promotion.ProductListFragment"
+        android:name="com.example.webay2.ui.offer.ProductListFragment"
         android:label="@string/menu_send"
         tools:layout="@layout/fragment_store_promotionList" />
 </navigation>

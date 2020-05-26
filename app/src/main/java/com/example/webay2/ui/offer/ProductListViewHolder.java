@@ -1,4 +1,4 @@
-package com.example.webay2.ui.store_promotion;
+package com.example.webay2.ui.offer;
 
 import android.view.View;
 import android.widget.ImageView;

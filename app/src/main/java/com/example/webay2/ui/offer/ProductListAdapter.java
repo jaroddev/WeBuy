@@ -1,4 +1,4 @@
-package com.example.webay2.ui.store_promotion;
+package com.example.webay2.ui.offer;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,19 +8,20 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.webay2.ProductData;
+import com.example.webay2.entities.Product;
 import com.example.webay2.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class ProductListAdapter extends RecyclerView.Adapter <ProductListViewHolder>
 {
     private Context context;
-    List<ProductData> productDataList;
+    List<Product> productList;
 
-    public ProductListAdapter(Context context, List<ProductData> productDataList, ProductListFragment storetListFragment) {
+    public ProductListAdapter(Context context, List<Product> productList, ProductListFragment storetListFragment) {
         this.context = context;
-        this.productDataList = productDataList;
+        this.productList = productList;
     }
 
     @NonNull
@@ -33,12 +34,14 @@ public class ProductListAdapter extends RecyclerView.Adapter <ProductListViewHol
     @Override
     public void onBindViewHolder(@NonNull ProductListViewHolder holder, int position) {
 
-        holder.getImage().setImageResource(productDataList.get(position).getImages().get(0).intValue());
-        holder.getTitle().setText(productDataList.get(position).getName());
+       // Picasso.get().load(productList.get(position).getImages().getImages().get(0).getUrlImage()).into(holder.getImage());
+        holder.getImage().setImageResource(R.drawable.carrefour);
+        //Picasso.get().load(productList.get(position).getImages().getImages().get(0).getUrlImage()).into(holder.getImage());
+        holder.getTitle().setText(productList.get(position).getName());
     }
 
     @Override
     public int getItemCount() {
-        return productDataList.size();
+        return productList.size();
     }
 }

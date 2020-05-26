@@ -1,4 +1,4 @@
-package com.example.webay2.ui.store_list;
+package com.example.webay2.ui.shop;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.webay2.R;
 
-public class StoreListViewHolder extends RecyclerView.ViewHolder {
+public class ShopViewHolder extends RecyclerView.ViewHolder {
     private ImageView image;
     private TextView title;
 
     CardView cardView;
 
-    public StoreListViewHolder(View itemView) {
+    public ShopViewHolder(View itemView) {
         super(itemView);
          this.image = itemView.findViewById(R.id.ivImage);
          this.title = itemView.findViewById(R.id.tvTitle);

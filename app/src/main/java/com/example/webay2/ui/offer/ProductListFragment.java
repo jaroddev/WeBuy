@@ -1,4 +1,4 @@
-package com.example.webay2.ui.store_promotion;
+package com.example.webay2.ui.offer;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,9 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.example.webay2.StoreData;
+import com.example.webay2.entities.Shop;
 import com.example.webay2.R;
-import com.example.webay2.ProductData;
+import com.example.webay2.entities.Product;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ import java.util.List;
 public class ProductListFragment extends Fragment
 {
     RecyclerView productListRecyclerView;
-    List<ProductData> productList;
+    List<Product> productList;
 
     LayoutInflater inflater;
     private ProductListViewModel mViewModel;
@@ -54,22 +55,17 @@ public class ProductListFragment extends Fragment
         images = new ArrayList<>();
         images.add(R.drawable.lidl);
 
-        ProductData productData = new ProductData("fraise",20,  10,"ok");
-        productData.setImages(images);
+
         ProductListAdapter myAdapter = null;
 
         if (mBundle != null) {
-            StoreData storeData= (StoreData) mBundle.getSerializable("magasin");
-            storeData.addProductData(productData);
-            storeData.addProductData(productData);
-            productData.setName("mangue");
-            storeData.addProductData(productData);
+            Shop shop = (Shop) mBundle.getSerializable("magasin");
+            mToolbar.setTitle(shop.getAddress().getCity()+" "+shop.getAddress().getDepartment());
+            Picasso.get().load(shop.getImages().getImages().get(0).getUrlImage()).into(mImage);
+            //mImage.setImageResource(storeData.getImage());
+            mDescription.setText(shop.getShopGroup().getName());
 
-            mToolbar.setTitle(storeData.getName());
-            mImage.setImageResource(storeData.getImage());
-            mDescription.setText(storeData.getDescription());
-
-            myAdapter = new ProductListAdapter(root.getContext(), storeData.getProductDataList(), this);
+            myAdapter = new ProductListAdapter(root.getContext(), new ArrayList<>(shop.getProducts()), this);
             
         }
         productListRecyclerView.setAdapter(myAdapter);
