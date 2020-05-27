@@ -1,5 +1,7 @@
 package com.example.webay2.entities;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -9,35 +11,38 @@ import java.util.Collection;
 
 public class User implements Serializable {
 
-
+	@Expose
 	private Long id;
-
-	// For authentication
+	@Expose
 	private String email;
+	@Expose
 	private String phoneNumber;
+	@Expose
 	private String password;
+	@Expose
 	private String role;
-
-	// Shop recommendation
+	@Expose
+	private String name;
 	private GPSLocationPointer gpsLocationPointer;
 
 	// Define the user to other user
-	private String name;
-
 
 	private Collection<User> friends;
-
 
 	private Collection<FriendRequest> sentFriendRequests;
 
 
 	private Collection<FriendRequest> receivedFriendRequests;
 
+
 	private Collection<Group> groups;
+
 
 	private Collection<Group> groupsCreate;
 
+
 	private Collection<GroupInvitation> sentGroupInvitations;
+
 
 	private Collection<GroupInvitation> receivedGroupInvitations;
 

@@ -12,20 +12,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.webay2.entities.Shop;
 import com.example.webay2.entities.User;
-import com.example.webay2.ui.shop.ShopAdapter;
-import com.example.webay2.ui.shop.ShopFragment;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 public class LoginActivity extends AppCompatActivity {
-    User user = null;
+    User user= null;
 
     public static User getUserByAuthentification(String email, String password)
     {
@@ -37,26 +34,18 @@ public class LoginActivity extends AppCompatActivity {
         Log.e("TAG", "Réponse Serveur: " +api_url +"  "+ jsonApiResponse);
 
         if (jsonApiResponse != null) {
-            try {new JSONArray(jsonApiResponse);
-                // Récuperer le tableau des user
-                JSONArray usersJsonArray = new JSONArray(jsonApiResponse);
-                // Pour tous les magasins
-                for (int i = 0; i < usersJsonArray.length(); i++)
-                {
+
+
 
                     // récupérer les valeurs de chaque propriété
-                    JSONObject userJsonObject = usersJsonArray.getJSONObject(i);
-                    Gson gsonPaeser = new Gson();
+
+                    Gson gsonPaeser = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+                   // Log.e("user json to string", userJsonObject.toString());
                     // créer un objet user en lui rajoutant les propriétés récupérées par json
-                    userAuth = gsonPaeser.fromJson(userJsonObject.toString(), User.class);
+                    userAuth = gsonPaeser.fromJson(jsonApiResponse, User.class);
+                    Log.e("TAG", userAuth.getPhoneNumber() +" "+userAuth.getName());
 
-                }
-            }
-            catch (final JSONException e)
-            {
-                Log.e("TAG", "Erreur de parsing JSON : " + e.getMessage());
 
-            }
         }
         else
         {
@@ -70,10 +59,12 @@ public class LoginActivity extends AppCompatActivity {
 
 
         private LoginActivity loginActivity;
+        private View v;
 
-        public GetUserByAuthentification(LoginActivity loginActivity)
+        public GetUserByAuthentification(LoginActivity loginActivity, View v)
         {
             this.loginActivity = loginActivity;
+            this.v = v;
 
         }
 
@@ -111,6 +102,19 @@ public class LoginActivity extends AppCompatActivity {
                 progressDialog.dismiss();
            /* ShopAdapter myAdapter = new ShopAdapter(getContext(), shopList, ShopFragment.this);
             shopsRecyclerView.setAdapter(myAdapter);*/
+
+            if(checkLoginBtn())
+            {
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                intent.putExtra("previousActivity", "LoginActivity") ;
+                intent.putExtra("loginUser", getLoginET()) ;
+                intent.putExtra("passwordUser", getPasswordET()) ;
+                startActivity(intent);
+            }
+            else
+            {
+                popUp("erreur login : "+getLoginET()+" "+getPasswordET());
+            }
         }
 
     }
@@ -123,16 +127,16 @@ public class LoginActivity extends AppCompatActivity {
         Button loginBtn = (Button) findViewById(R.id.loginBtn);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                LoginActivity.GetUserByAuthentification task = new GetUserByAuthentification(LoginActivity.this);
+                LoginActivity.GetUserByAuthentification task = new GetUserByAuthentification(LoginActivity.this, v);
                 task.execute();
                 /*if(checkLoginBtn())
-                {*/
+                {
                     Intent intent = new Intent(v.getContext(), MainActivity.class);
                     intent.putExtra("previousActivity", "LoginActivity") ;
                     intent.putExtra("loginUser", getLoginET()) ;
                     intent.putExtra("passwordUser", getPasswordET()) ;
                     startActivity(intent);
-                /*}
+                }
                 else
                 {
                     popUp("erreur login : "+getLoginET()+" "+getPasswordET());
@@ -148,8 +152,10 @@ public class LoginActivity extends AppCompatActivity {
 
     public boolean checkLoginBtn()
     {
-        if(this.getLoginET().equals(user.getEmail()) && this.getPasswordET().equals(user.getPassword()))
-            return true;
+        if(user != null) {
+            if (this.getLoginET().equals(user.getEmail()) && this.getPasswordET().equals(user.getPassword()))
+                return true;
+        }
         return false;
     }
     public String getLoginET() {
