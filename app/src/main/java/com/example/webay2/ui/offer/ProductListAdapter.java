@@ -36,7 +36,7 @@ public class ProductListAdapter extends RecyclerView.Adapter <ProductListViewHol
 
        // Picasso.get().load(productList.get(position).getImages().getImages().get(0).getUrlImage()).into(holder.getImage());
         holder.getImage().setImageResource(R.drawable.carrefour);
-        //Picasso.get().load(productList.get(position).getImages().getImages().get(0).getUrlImage()).into(holder.getImage());
+
         holder.getTitle().setText(productList.get(position).getName());
     }
 

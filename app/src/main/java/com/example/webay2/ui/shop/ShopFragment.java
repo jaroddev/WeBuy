@@ -25,109 +25,96 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShopFragment extends Fragment {
-
     private ShopViewModel homeViewModel;
     RecyclerView shopsRecyclerView;
     List<Shop> shopList;
-
     LayoutInflater inflater;
-    private class ShopBase extends BaseWeBuy {}
-
-    private ProgressDialog pDialog;
 
 
     public static ArrayList<Shop> getAllStores() {
         ArrayList<Shop> shops = new ArrayList<>();
-
         // Effectuer la requete on utilisant l'url , la réponse est une chaîne JSON
-        //String api_url = "https://webuy.sciences.univ-tours.fr/api/v1/magasins";
-        //String api_url = Store.api_url + "/magasins";
 
-        String api_url = "http://10.0.2.2:8080/shops";
-
+        String api_url = BaseWeBuy.api_url+"/shops";
         HttpHandler httpApi = new HttpHandler();
-
         String jsonApiResponse = httpApi.makeServiceCall(api_url);
 
         Log.e("TAG", "Réponse Serveur: " +api_url +"  "+ jsonApiResponse);
 
         if (jsonApiResponse != null) {
             try {new JSONArray(jsonApiResponse);
-
                 // Récuperer le tableau des magasins
                 JSONArray shopsJsonArray = new JSONArray(jsonApiResponse);
-
                 // Pour tous les magasins
-
-                for (int i = 0; i < shopsJsonArray.length(); i++) {
+                for (int i = 0; i < shopsJsonArray.length(); i++)
+                {
 
                     // récupérer les valeurs de chaque propriété
                     JSONObject shopJsonObject = shopsJsonArray.getJSONObject(i);
                     Gson gsonPaeser = new Gson();
-
-
-
                     // créer un objet magasin en lui rajoutant les propriétés récupérées par json
                     Shop shop = gsonPaeser.fromJson(shopJsonObject.toString(), Shop.class);
-
                     // réjouter le magasin à la liste des magasins
                     shops.add(shop);
                 }
-            } catch (final JSONException e) {
+            }
+            catch (final JSONException e)
+            {
                 Log.e("TAG", "Erreur de parsing JSON : " + e.getMessage());
 
             }
-        } else {
+        }
+        else
+        {
             Log.e("TAG", "Réponse vide !, pas de JSON");
         }
-
         return shops;
-
     }
 
     private class GetAllMagasinsTask extends AsyncTask<Void, Void, Void> {
+        private ProgressDialog progressDialog;
 
         private ShopFragment fragment;
 
-        public GetAllMagasinsTask(ShopFragment f) {
+        public GetAllMagasinsTask(ShopFragment f)
+        {
             this.fragment = f;
         }
 
         @Override
-        protected void onPreExecute() {
+        protected void onPreExecute()
+        {
             super.onPreExecute();
-            pDialog = new ProgressDialog(getContext());
-            pDialog.setMessage("Chargement des magasins...");
-            pDialog.setCancelable(false);
-            pDialog.show();
+            progressDialog = new ProgressDialog(getContext());
+            progressDialog.setMessage("Chargement des magasins...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
 
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
-
+        protected Void doInBackground(Void... params)
+        {
             shopList = ShopFragment.getAllStores();
-            Log.i("MagasinActivity", "magasins.size()" + shopList.size());
+            Log.i("ShopFragment", "shopsList.size = " + shopList.size());
             return null;
         }
 
         @Override
-        protected void onProgressUpdate(Void... progress) {
+        protected void onProgressUpdate(Void... progress)
+        {
             super.onProgressUpdate(progress);
-            pDialog.setProgress(1);
+            progressDialog.setProgress(1);
         }
 
         @Override
-        protected void onPostExecute(Void result) {
+        protected void onPostExecute(Void result)
+        {
             super.onPostExecute(result);
-            if (pDialog.isShowing())
-                pDialog.dismiss();
-
+            if (progressDialog.isShowing())
+                progressDialog.dismiss();
             ShopAdapter myAdapter = new ShopAdapter(getContext(), shopList, ShopFragment.this);
             shopsRecyclerView.setAdapter(myAdapter);
-
-
-
         }
 
     }
