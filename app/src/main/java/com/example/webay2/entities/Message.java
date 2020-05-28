@@ -1,5 +1,7 @@
 package com.example.webay2.entities;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,15 +11,15 @@ public class Message implements Serializable {
 
 	private static final long serialVersionUID = 289007841462112538L;
 
-
+	@Expose
 	private Long id;
 
-
+	@Expose
 	private User creator;
-
+	@Expose
 	private Date createdAt;
 
-
+	@Expose
 	private String message;
 
 	public Long getId() {

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.webay2.entities.Group;
 import com.example.webay2.entities.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,31 +22,41 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 public class LoginActivity extends AppCompatActivity {
     User user= null;
+    Session session = null;
 
     public static User getUserByAuthentification(String email, String password)
     {
         User userAuth = null;
+        Collection<Group> groups = new ArrayList<>();
         String api_url = BaseWeBuy.api_url+"/users"+"/"+email+"/"+password;
         HttpHandler httpApi = new HttpHandler();
         String jsonApiResponse = httpApi.makeServiceCall(api_url);
-
         Log.e("TAG", "Réponse Serveur: " +api_url +"  "+ jsonApiResponse);
 
-        if (jsonApiResponse != null) {
+        if (jsonApiResponse != null)
+        {
+            Gson gsonPaeser = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+            userAuth = gsonPaeser.fromJson(jsonApiResponse, User.class);
+
+            for(Group group : userAuth.getGroups())
+            {
+                api_url = new String(BaseWeBuy.api_url+"/groups/"+group.getId());
+                httpApi = new HttpHandler();
+                String groupJsonApiResponse = httpApi.makeServiceCall(api_url);
+                gsonPaeser = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+                Group group1 = gsonPaeser.fromJson(groupJsonApiResponse, Group.class);
+                groups.add(group1);
+
+            }
+            userAuth.setGroups(groups);
 
 
-
-                    // récupérer les valeurs de chaque propriété
-
-                    Gson gsonPaeser = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-                   // Log.e("user json to string", userJsonObject.toString());
-                    // créer un objet user en lui rajoutant les propriétés récupérées par json
-                    userAuth = gsonPaeser.fromJson(jsonApiResponse, User.class);
-                    Log.e("TAG", userAuth.getPhoneNumber() +" "+userAuth.getName());
-
-
+            Log.e("TAG", userAuth.getPhoneNumber() +" "+userAuth.getName());
         }
         else
         {
@@ -56,8 +67,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private class GetUserByAuthentification extends AsyncTask<Void, Void, Void> {
         private ProgressDialog progressDialog;
-
-
         private LoginActivity loginActivity;
         private View v;
 
@@ -65,7 +74,6 @@ public class LoginActivity extends AppCompatActivity {
         {
             this.loginActivity = loginActivity;
             this.v = v;
-
         }
 
         @Override
@@ -76,14 +84,12 @@ public class LoginActivity extends AppCompatActivity {
             progressDialog.setMessage("Chargement des utilisateurs...");
             progressDialog.setCancelable(false);
             progressDialog.show();
-
         }
 
         @Override
         protected Void doInBackground(Void... params)
         {
             user = LoginActivity.getUserByAuthentification(this.loginActivity.getLoginET(), this.loginActivity.getPasswordET());
-//            Log.i("LoginActivity", "userName = " + user.getName());
             return null;
         }
 
@@ -100,15 +106,10 @@ public class LoginActivity extends AppCompatActivity {
             super.onPostExecute(result);
             if (progressDialog.isShowing())
                 progressDialog.dismiss();
-           /* ShopAdapter myAdapter = new ShopAdapter(getContext(), shopList, ShopFragment.this);
-            shopsRecyclerView.setAdapter(myAdapter);*/
-
             if(checkLoginBtn())
             {
                 Intent intent = new Intent(v.getContext(), MainActivity.class);
-                intent.putExtra("previousActivity", "LoginActivity") ;
-                intent.putExtra("loginUser", getLoginET()) ;
-                intent.putExtra("passwordUser", getPasswordET()) ;
+                session.setUser(user);
                 startActivity(intent);
             }
             else
@@ -122,25 +123,15 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        session = new Session(getApplicationContext());
         setContentView(R.layout.sign_in);
         Button loginBtn = (Button) findViewById(R.id.loginBtn);
+
         loginBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 LoginActivity.GetUserByAuthentification task = new GetUserByAuthentification(LoginActivity.this, v);
                 task.execute();
-                /*if(checkLoginBtn())
-                {
-                    Intent intent = new Intent(v.getContext(), MainActivity.class);
-                    intent.putExtra("previousActivity", "LoginActivity") ;
-                    intent.putExtra("loginUser", getLoginET()) ;
-                    intent.putExtra("passwordUser", getPasswordET()) ;
-                    startActivity(intent);
-                }
-                else
-                {
-                    popUp("erreur login : "+getLoginET()+" "+getPasswordET());
-                }*/
+
             }
         });
 

@@ -34,7 +34,7 @@ public class User implements Serializable {
 
 	private Collection<FriendRequest> receivedFriendRequests;
 
-
+	@Expose
 	private Collection<Group> groups;
 
 

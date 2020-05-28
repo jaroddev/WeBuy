@@ -61,7 +61,8 @@ public class ProductListFragment extends Fragment
         if (mBundle != null) {
             Shop shop = (Shop) mBundle.getSerializable("magasin");
             mToolbar.setTitle(shop.getAddress().getCity()+" "+shop.getAddress().getDepartment());
-            Picasso.get().load(shop.getImages().getImages().get(0).getUrlImage()).into(mImage);
+            Picasso.get().load(shop.getShopGroup().getLogo().getUrlImage()).into(mImage);
+            //Picasso.get().load(shop.getImages().getImages().get(0).getUrlImage()).into(mImage);
             //mImage.setImageResource(storeData.getImage());
             mDescription.setText(shop.getShopGroup().getName());
 

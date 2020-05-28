@@ -1,5 +1,7 @@
 package com.example.webay2.entities;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -8,7 +10,7 @@ import java.util.Collection;
 
 public class Group implements Serializable {
 
-
+	@Expose
 	private Long id;
 
 
@@ -17,7 +19,7 @@ public class Group implements Serializable {
 
 	private Collection<User> members;
 
-
+	@Expose
 	private Collection<Message> messages;
 
 
