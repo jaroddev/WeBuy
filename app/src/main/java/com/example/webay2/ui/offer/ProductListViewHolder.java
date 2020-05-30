@@ -14,12 +14,25 @@ class ProductListViewHolder extends RecyclerView.ViewHolder {
     private ImageView image;
     private TextView title;
 
+    private TextView price;
+    private TextView stock;
+
+    public TextView getPrice() {
+        return price;
+    }
+
+    public TextView getStock() {
+        return stock;
+    }
+
     CardView cardView;
     public ProductListViewHolder(@NonNull View itemView) {
         super(itemView);
         this.image = itemView.findViewById(R.id.productImageIV);
         this.title = itemView.findViewById(R.id.productTitleTV);
         this.cardView = itemView.findViewById(R.id.card_view_product_res);
+        this.price = itemView.findViewById(R.id.productPriceTV);
+        this.stock = itemView.findViewById(R.id.productStockTV);
     }
 
     public ImageView getImage() {

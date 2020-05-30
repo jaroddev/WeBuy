@@ -34,10 +34,11 @@ public class ProductListAdapter extends RecyclerView.Adapter <ProductListViewHol
     @Override
     public void onBindViewHolder(@NonNull ProductListViewHolder holder, int position) {
 
-       // Picasso.get().load(productList.get(position).getImages().getImages().get(0).getUrlImage()).into(holder.getImage());
-        holder.getImage().setImageResource(R.drawable.carrefour);
-
+       Picasso.get().load(productList.get(position).getImages().getImages().get(0).getUrlImage()).into(holder.getImage());
+        // holder.getImage().setImageResource(R.drawable.carrefour);
         holder.getTitle().setText(productList.get(position).getName());
+        holder.getPrice().setText(productList.get(position).getPrice()+" €");
+        holder.getStock().setText(productList.get(position).getStock()+" items in stock");
     }
 
     @Override
